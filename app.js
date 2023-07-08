@@ -10,6 +10,9 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const passport = require('passport');
 const connectDB = require('./config/db');
 
+const MONGO_URI =  process.env.MONGO_URI
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 // Load config
 dotenv.config({ path: './config/config.env' });
 

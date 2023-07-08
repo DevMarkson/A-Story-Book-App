@@ -2,6 +2,11 @@ const googleStrategy = require('passport-google-oauth20');
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
+
+const MONGO_URI =  process.env.MONGO_URI
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+
 module.exports = function(passport) {
   passport.use(new googleStrategy({
       clientID: process.env.GOOGLE_CLIENT_ID,

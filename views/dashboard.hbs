@@ -1,8 +1,11 @@
-<h6>Dashboards</h6>
-<h3>Welcome {{name}}</h3>
-<p>Here are your stories</p>
+<h5><b>Dashboard</b></h5>
+<h5>Welcome <b>{{name}}</b> to our Story Book App! Start creating amazing stories that will captivate readers worldwide. 
+    Choose to make your stories public and let other users enjoy your imaginative tales. Alternatively, 
+    keep your stories private for a more personal experience. Unleash your creativity and embark on an exciting 
+    storytelling adventure with us!</h5>
 
 {{#if stories}}
+<h5><b>Here are your stories</h5></b></b>
 <table class="stripped">
     <thead>
         <tr>
@@ -32,5 +35,7 @@
     </tbody>
 </table>
 {{else}}
-<p>You have not created any stories</p>
+<h5><b>You have not created any stories</b></h5>
+<h5>While you're getting started, feel free to explore our collection of captivating public stories 
+for some thrilling adventures through the notification menu on the top right corner of the page or add a new story.</h5>
 {{/if}}

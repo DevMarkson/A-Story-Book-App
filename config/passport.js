@@ -39,7 +39,7 @@ module.exports = function(passport) {
       {
         clientID: process.env.MICROSOFT_CLIENT_ID,
         clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
-        callbackURL: '/auth/microsoft/callback',
+        callbackURL: 'https://story-book-app-markson.onrender.com/auth/microsoft/callback',
         scope: ['user.read'],
 
         tenant: 'common',

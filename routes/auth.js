@@ -16,6 +16,18 @@ router.get('/google/callback',
     res.redirect('/dashboard');
   });
 
+router.get('/microsoft',
+  passport.authenticate('microsoft', {
+    prompt: 'select_account',
+  }));
+
+router.get('/microsoft/callback', 
+  passport.authenticate('microsoft', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+  
 // @desc logout
 // @route GET /auth/logout
 // Example code

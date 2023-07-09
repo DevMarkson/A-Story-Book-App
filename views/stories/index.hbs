@@ -27,7 +27,9 @@
                 <p>{{stripTags (truncate body 150) }}</p>
                 <br>
                 <div class="chip">
-                    <img src="{{user.image}}" alt="">
+                    {{#if user.image}}
+                        <img src="{{user.image}}" alt="">
+                    {{/if}}
                     <a href="/stories/user/{{user._id}}">{{user.displayName}}</a>
                 </div>
             </div>

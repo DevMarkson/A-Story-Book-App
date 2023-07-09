@@ -1,18 +1,13 @@
 const GoogleStrategy = require('passport-google-oauth20');
 const User = require('../models/User');
 
-
-const MONGO_URI =  process.env.MONGO_URI
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
-
 module.exports = function(passport) {
   passport.use(
     new GoogleStrategy(
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'https://story-book-app-markson.onrender.com/auth/google/callback',
+        callbackURL: '/auth/google/callback',
       },
     async (accessToken, refreshToken, profile, done) => {
       const userData = {
@@ -38,6 +33,45 @@ module.exports = function(passport) {
       }
     }
   ));
+  let MicrosoftStrategy = require('passport-microsoft').Strategy;
+  passport.use(
+    new MicrosoftStrategy(
+      {
+        clientID: process.env.MICROSOFT_CLIENT_ID,
+        clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
+        callbackURL: '/auth/microsoft/callback',
+        scope: ['user.read'],
+
+        tenant: 'common',
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        const userData = {
+          googleId: profile.id,
+          displayName: profile.displayName,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+        };
+
+        try {
+          let user = await User.findOne({ googleId: profile.id });
+
+          if (user) {
+            done(null, user);
+          } else {
+            user = await User.create(userData);
+            done(null, user);
+          }
+        } catch (err) {
+          console.error(err);
+          done(err);
+        }
+        console.log(profile.id);
+        console.log(profile.displayName);
+        console.log(profile.name.givenName);
+        console.log(profile.name.familyName);
+      }
+    )
+  );
 
   passport.serializeUser((user, done) => {
     done(null, user.id);

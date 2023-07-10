@@ -1,39 +1,61 @@
-<h5><b>Dashboard</b></h5>
-<h5>Welcome <b>{{name}}</b> to our Story Book App! Start creating amazing stories that will captivate readers worldwide. 
-    Choose to make your stories public and let other users enjoy your imaginative tales. Alternatively, 
-    keep your stories private for a more personal experience. Unleash your creativity and embark on an exciting 
-    storytelling adventure with us!</h5>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" rel="stylesheet">
+    <script crossorigin="anonymous"
+    integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
+    src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script crossorigin="anonymous"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h5 class="display-4"><b>Dashboard</b></h5>
+        <h5 class="lead">Welcome <b>{{name}}</b> to our Story Book App!</h5>
+        <p class="lead">Start creating amazing stories that will captivate readers worldwide.</p>
+        <p class="lead">Choose to make your stories public and let other users enjoy your imaginative tales. Alternatively,</p>
+        <p class="lead">keep your stories private for a more personal experience. Unleash your creativity and embark on an exciting</p>
+        <p class="lead">storytelling adventure with us!</p>
+    </div>
 
-{{#if stories}}
-<h5><b>Here are your stories</h5></b></b>
-<table class="stripped">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each stories}}
-        <tr>
-            <td><a href="/stories/{{_id}}">{{title}}</a></td>
-            <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-            <td><span class="dash-status">{{status}}</span> </td>
-            <td><a href="/stories/edit/{{_id}}" class="btn btn-float">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <form action="/stories/{{_id}}" method="POST" id="delete-form">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="btn red">
-                        <i class="fas fa-trash"></i>
-                    </button>
-            </td>
-        </tr>
-        {{/each}} 
-    </tbody>
-</table>
-{{else}}
-<h5><b>You have not created any stories</b></h5>
-{{/if}}
+    {{#if stories}}
+    <h5 class="display-4"><b>Here are your stories</b></h5>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each stories}}
+            <tr>
+                <td><a href="/stories/{{_id}}">{{title}}</a></td>
+                <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
+                <td><span class="dash-status {{status}}"></span> </td>
+                <td>
+                    <a href="/stories/edit/{{_id}}" class="btn btn-float">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="/stories/{{_id}}" method="POST" id="delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn red">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                </td>
+            </tr>
+            {{/each}} 
+        </tbody>
+    </table>
+    {{else}}
+    <h5 class="display-4"><b>You have not created any stories</b></h5>
+    {{/if}}
+</body>
+</html>

@@ -7,11 +7,11 @@ module.exports = function(passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: '/auth/google/callback',
+        callbackURL: 'https://story-book-app-markson.onrender.com/auth/google/callback',
       },
     async (accessToken, refreshToken, profile, done) => {
       const userData = {
-        googleId: profile.id,
+        authId: profile.id,
         displayName: profile.displayName,
         firstName: profile.name.givenName,
         lastName: profile.name.familyName,
@@ -19,7 +19,7 @@ module.exports = function(passport) {
       };
 
       try {
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ authId: profile.id });
 
         if (user) {
           done(null, user);
@@ -46,14 +46,14 @@ module.exports = function(passport) {
       },
       async (accessToken, refreshToken, profile, done) => {
         const userData = {
-          googleId: profile.id,
+          authId: profile.id,
           displayName: profile.displayName,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
         };
 
         try {
-          let user = await User.findOne({ googleId: profile.id });
+          let user = await User.findOne({ authId: profile.id });
 
           if (user) {
             done(null, user);
@@ -65,10 +65,6 @@ module.exports = function(passport) {
           console.error(err);
           done(err);
         }
-        console.log(profile.id);
-        console.log(profile.displayName);
-        console.log(profile.name.givenName);
-        console.log(profile.name.familyName);
       }
     )
   );

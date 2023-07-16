@@ -1,4 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
+function removeComma(genre) {
+  if (Array.isArray(genre)) {
+    return genre.join(' ');
+  }
+  return genre;
+}
 
 const StorySchema = new mongoose.Schema({
   title: {
@@ -15,6 +22,12 @@ const StorySchema = new mongoose.Schema({
     default: 'public',
     enum: ['public', 'private'],
   },
+  genre: { 
+    type: [String],
+    required: false,
+    default: '',
+    set: removeComma,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -23,6 +36,6 @@ const StorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-})
+});
 
-module.exports = mongoose.model('Story', StorySchema)
+module.exports = mongoose.model('Story', StorySchema);

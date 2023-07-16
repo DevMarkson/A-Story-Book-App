@@ -31,6 +31,7 @@
                 <th>Title</th>
                 <th>Date</th>
                 <th>Status</th>
+                <th>Genre(s)</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,7 +40,8 @@
             <tr>
                 <td><a href="/stories/{{_id}}">{{title}}</a></td>
                 <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss a'}}</td>
-                <td><span class="dash-status {{status}}"></span> </td>
+                <td><span class="dash-status">{{status}}</span></td>
+                <td>{{genre}}</td>
                 <td>
                     <a href="/stories/edit/{{_id}}" class="btn btn-float">
                         <i class="fas fa-edit"></i>
@@ -59,3 +61,4 @@
     {{/if}}
 </body>
 </html>
+ 

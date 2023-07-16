@@ -94,14 +94,25 @@ router.put('/:id', ensureAuth, async (req, res) => {
 // @route DELETE /stories/:id
 router.delete('/:id', ensureAuth, async (req, res) => {
     try {
-        await Story.findByIdAndDelete({_id: req.params.id})
-        res.redirect('/dashboard')
-        
+    //   console.log(req.params.id); // Debugging statement  
+      let story = await Story.findById(req.params.id).lean();
+      if (!story) {
+        return res.render('error/404');
+      }
+    //   console.log(story.user, req.user.id); // Debugging statement
+  
+      if (String(story.user) !== String(req.user.id)) {
+        res.redirect('/stories');
+      } else {
+        await Story.deleteOne({ _id: req.params.id });
+        res.redirect('/dashboard');
+      }
     } catch (err) {
-        console.error(err)
-        return res.render('error/500')
+      console.error(err);
+      return res.render('error/500');
     }
-});
+  });
+  
 
 // @desc  Show single story
 // @route GET /stories/:id
@@ -139,19 +150,28 @@ router.get('/user/:userId', ensureAuth, async (req, res) => {
     }
 });
 
-//@desc Search stories by title
+//@desc Search stories by title or genre
 //@route GET /stories/search/:query
 router.get('/search/:query', ensureAuth, async (req, res) => {
-    try{
-        const stories = await Story.find({title: new RegExp(req.query.query,'i'), status: 'public'})
+    try {
+        const query = req.query.query;
+        const stories = await Story.find({
+            $or: [
+                { title: new RegExp(query, 'i') },
+                { genre: new RegExp(query, 'i') }
+            ],
+            status: 'public'
+        })
         .populate('user')
-        .sort({ createdAt: 'desc'})
-        .lean()
-       res.render('stories/index', { stories })
-    } catch(err){
-        console.log(err)
-        res.render('error/404')
+        .sort({ createdAt: 'desc' })
+        .lean();
+        
+        res.render('stories/index', { stories });
+    } catch(err) {
+        console.log(err);
+        res.render('error/404');
     }
-  })
+});
+
   
 module.exports = router;

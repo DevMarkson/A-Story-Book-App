@@ -1,17 +1,12 @@
 # StoryBooks App
-This is a customized version of the StoryBooks Node.js application, originally developed from scratch by following the comprehensive tutorial "Node.js App From Scratch | Express, MongoDB & Google OAuth" on YouTube, created by Brad Traversy. Inspired by this insightful video, I delved into the world of Node.js and extended the application's functionality by implementing Microsoft OAuth authentication alongside the existing Google OAuth integration. This enhancement allows users to authenticate using their Microsoft accounts, adding another layer of flexibility to the authentication process.
+## Overview
 
-## Tutorial Information
-- Tutorial Title: Node.js App From Scratch | Express, MongoDB & Google OAuth
-- YouTube Link: [Node.js App From Scratch | Express, MongoDB & Google OAuth - YouTube](https://www.youtube.com/watch?v=SBvmnHTQIPY)
+StoryBooks is a CRUD (Create, Read, Update, Delete) application that allows users to create and manage their stories. It leverages Express as the framework, MongoDB as the database, and Handlebars as the template engine. The original implementation incorporated Google OAuth for user authentication. This modified version extends the authentication options to include Microsoft OAuth.
 
 ## Screenshot of my deployed app
 ![The Login Page](./screenshots/Storybook-login.png)
 ![The Public stories section](./screenshots/public-stories.png)
 
-## Overview
-
-StoryBooks is a CRUD (Create, Read, Update, Delete) application that allows users to create and manage their stories. It leverages Express as the framework, MongoDB as the database, and Handlebars as the template engine. The original implementation incorporated Google OAuth for user authentication. This modified version extends the authentication options to include Microsoft OAuth.
 
 ## Features
 
